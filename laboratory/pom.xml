@@ -98,15 +98,6 @@
                     <productDataVersion>${jira.version}</productDataVersion>
                     <enableQuickReload>false</enableQuickReload>
                     <enableFastdev>false</enableFastdev>
-                    <instructions>
-                        <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
-                        <!-- Add package to export here -->
-                        <Export-Package>com.izpa.jira.plugins.laboratory.api,</Export-Package>
-                        <!-- Add package import here -->
-                        <Import-Package>org.springframework.osgi.*;resolution:="optional", org.eclipse.gemini.blueprint.*;resolution:="optional", *</Import-Package>
-                        <!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
-                        <Spring-Context>*</Spring-Context>
-                    </instructions>
                 </configuration>
             </plugin>
             <plugin>
