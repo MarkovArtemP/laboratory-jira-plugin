@@ -13,14 +13,20 @@
   <!-- add our web resources -->
   <web-resource key="laboratory-resources" name="laboratory Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="laboratory.css" location="/css/laboratory.css"/>
-    <resource type="download" name="laboratory.js" location="/js/laboratory.js"/>
     <resource type="download" name="images/" location="/images"/>
     <context>laboratory</context>
   </web-resource>
   <web-item name="Laboratory Web Item" i18n-name-key="laboratory-web-item.name" key="laboratory-web-item" section="system.top.navigation.bar" weight="1000">
     <description key="laboratory-web-item.description">The Laboratory Web Item Plugin</description>
-    <label key="laboratory-web-item.label"></label>
+    <label>Laboratory</label>>
     <link linkId="laboratory-web-item-link">/secure/LaboratoryAction.jspa</link>
   </web-item>
+  <webwork1 key="laboratory" name="Laboratory" i18n-name-key="laboratory.name">
+    <description key="laboratory.description">The Laboratory Plugin</description>
+    <actions>
+      <action name="com.izpa.jira.plugins.jira.webwork.LaboratoryAction" alias="LaboratoryAction">
+        <view name="success">/templates/laboratory/success.vm</view>
+      </action>
+    </actions>
+  </webwork1>
 </atlassian-plugin>
