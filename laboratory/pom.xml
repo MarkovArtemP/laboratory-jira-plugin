@@ -79,6 +79,12 @@
             <version>1.6.6</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <version>1.1.5</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -90,17 +96,8 @@
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
-                    <enableQuickReload>true</enableQuickReload>
+                    <enableQuickReload>false</enableQuickReload>
                     <enableFastdev>false</enableFastdev>
-                    <instructions>
-                        <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
-                        <!-- Add package to export here -->
-                        <Export-Package>com.izpa.jira.plugins.laboratory.api,</Export-Package>
-                        <!-- Add package import here -->
-                        <Import-Package>org.springframework.osgi.*;resolution:="optional", org.eclipse.gemini.blueprint.*;resolution:="optional", *</Import-Package>
-                        <!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
-                        <Spring-Context>*</Spring-Context>
-                    </instructions>
                 </configuration>
             </plugin>
             <plugin>
