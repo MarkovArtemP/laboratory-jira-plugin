@@ -29,4 +29,14 @@
       </action>
     </actions>
   </webwork1>
+  <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
+    <description>Component to access Active Objects functionality from the plugin</description>
+  </component-import>
+
+  <ao key="ao-module">
+    <entity>com.izpa.jira.plugins.entity.RecordEntity</entity>
+  </ao>
+
+  <component key="dao-factory" class="com.izpa.jira.plugins.dao.DAOFactory">
+  </component>
 </atlassian-plugin>
