@@ -1,24 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
-    <plugin-info>
-        <description>${project.description}</description>
-        <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}" />
-        <param name="plugin-icon">images/pluginIcon.png</param>
-        <param name="plugin-logo">images/pluginLogo.png</param>
-    </plugin-info>
-
-    <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="laboratory"/>
-    
-    <!-- add our web resources -->
-    <web-resource key="laboratory-resources" name="laboratory Web Resources">
-        <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
-        <resource type="download" name="laboratory.css" location="/css/laboratory.css"/>
-        <resource type="download" name="laboratory.js" location="/js/laboratory.js"/>
-        <resource type="download" name="images/" location="/images"/>
-
-        <context>laboratory</context>
-    </web-resource>
-    
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="laboratory"/>
+  <!-- add our web resources -->
+  <web-resource key="laboratory-resources" name="laboratory Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="laboratory.css" location="/css/laboratory.css"/>
+    <resource type="download" name="laboratory.js" location="/js/laboratory.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>laboratory</context>
+  </web-resource>
+  <web-item name="Laboratory Web Item" i18n-name-key="laboratory-web-item.name" key="laboratory-web-item" section="system.top.navigation.bar" weight="1000">
+    <description key="laboratory-web-item.description">The Laboratory Web Item Plugin</description>
+    <label key="laboratory-web-item.label"></label>
+    <link linkId="laboratory-web-item-link">/secure/LaboratoryAction.jspa</link>
+  </web-item>
 </atlassian-plugin>
