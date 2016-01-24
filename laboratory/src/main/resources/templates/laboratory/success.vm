@@ -23,27 +23,24 @@
                 <p>Some text</p>
             </div>
             <div class="tabs-pane active-pane" id="tab-B">
-                <form action="/secure/LaboratoryAction!add.jspa">
-                    <label for="text">Text: </label>
-                    <input type="text" name="text" id="text" placeholder="Some text" required/>
-                    <label for="date">Date: </label>
-                    <input type="date" name="date" id="date" placeholder="dd.MM.yyyy" required/>
-                    <input type="submit" value="OK"/>
+                <form id="laboratory-records" class="loading" action="#">
+                    <table class="aui" id="laboratory-records-table">
+                        <thead>
+                            <tr>
+                                <th>text</th>
+                                <th>date</th>
+                                <th><!--buttons--></th>
+                                <th><!--throbber--></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="jira-restfultable-init">
+                        <span class="jira-restfultable-throbber"></span>
+                        <span class="jira-restfultable-loading">Loading</span>
+                    </div>
                 </form>
-                <table>
-                    <thead>
-                        <th>text</th>
-                        <th>date</th>
-                    </thead>
-                    <tbody>
-                    #foreach($record in $records)
-                        <tr>
-                            <td>$record.getText()</td>
-                            <td>$record.getDate()</td>
-                        </tr>
-                    #end
-                    </tbody>
-                </table>
             </div>
             <div class="tabs-pane" id="tab-C">
                 <h2>3 tab</h2>
