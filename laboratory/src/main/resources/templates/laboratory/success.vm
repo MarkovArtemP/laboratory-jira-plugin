@@ -19,30 +19,89 @@
                 </li>
             </ul>
             <div class="tabs-pane" id="tab-A">
-                <h2>1 tab</h2>
-                <p>Some text</p>
+
             </div>
             <div class="tabs-pane active-pane" id="tab-B">
                 <div id="laboratory-panel-records" class="laboratory-panel">
-                             <form id="laboratory-records" class="loading" action="#">
-                                 <table class="aui" id="laboratory-records-table">
-                                     <thead>
-                                         <tr>
-                                             <th>text</th>
-                                             <th>date</th>
-                                             <th><!--buttons--></th>
-                                             <th><!--throbber--></th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                     </tbody>
-                                 </table>
-                                 <div class="jira-restfultable-init">
-                                     <span class="jira-restfultable-throbber"></span>
-                                     <span class="jira-restfultable-loading">Loading</span>
-                                  </div>
-                              </form>
-                          </div>
+                     <form id="laboratory-records" class="loading" action="#">
+                         <table class="aui" id="laboratory-records-table">
+                             <thead>
+                                 <tr>
+                                     <th>text</th>
+                                     <th>date</th>
+                                     <th><!--buttons--></th>
+                                     <th><!--throbber--></th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                             </tbody>
+                         </table>
+                      </form>
+                </div>
+                <script type="text/javascript">
+                document.write("window.location.href : ");
+                document.write(window.location.href+"<br>");
+                </script>
+                <script type="text/javascript">
+                document.write("document.URL: ");
+                document.write(document.URL+"<br>");
+                </script>
+
+                <script type="text/javascript">
+                    document.write("AJS.params.baseURL: ");
+                    document.write(AJS.params.baseURL+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("contextPath: ");
+                    document.write(contextPath+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("AJS.contextPath: ");
+                    document.write(AJS.contextPath+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("baseUrl: ");
+                    document.write(baseUrl+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("$baseUrl: ");
+                    document.write($baseUrl+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("$req.contextPath: ");
+                    document.write($req.contextPath+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("req.contextPath: ");
+                    document.write(req.contextPath+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("1<br>");
+                    document.write(contextPath+"/rest/laboratory/1.0/records"+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("2<br>");
+                    document.write(jQuery.getJSON(contextPath+"/rest/laboratory/1.0/records")+"<br>");
+                </script>
+                <script type="text/javascript">
+                    document.write("3<br>");
+                    var records1 = JSON.parse(jQuery.getJSON(contextPath+"/rest/laboratory/1.0/records"));
+                    document.write("4<br>");
+                    document.write(records1.count+"<br>");
+                    document.write("5<br>");
+                    document.write(records1.records["text"]+"<br>");
+                </script>
+                <script type="text/javascript">
+                    var url =  location.protocol+"//"+location.hostname+(location.port ? ":"+location.port: "")+contextPath+"/rest/laboratory/1.0/records";
+                    document.write(url);
+                    document.write("3<br>");
+                    var jrecords = $.getJSON(url);
+                    var records = JSON.parse(jrecords);
+                    document.write("4<br>");
+                    document.write(records.count+"<br>");
+                    document.write("5<br>");
+                    document.write(records.records[1].text+"<br>");
+                </script>
             </div>
             <div class="tabs-pane" id="tab-C">
                 <h2>3 tab</h2>
