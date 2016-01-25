@@ -24,26 +24,28 @@
                 <p>Some text</p>
             </div>
             <div class="tabs-pane active-pane" id="tab-B">
-                <div id="laboratory-panel-records" class="laboratory-panel">
-                             <form id="laboratory-records" class="loading" action="#">
-                                 <table class="aui" id="laboratory-records-table">
-                                     <thead>
-                                         <tr>
-                                             <th>text</th>
-                                             <th>date</th>
-                                             <th><!--buttons--></th>
-                                             <th><!--throbber--></th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                     </tbody>
-                                 </table>
-                                 <div class="jira-restfultable-init">
-                                     <span class="jira-restfultable-throbber"></span>
-                                     <span class="jira-restfultable-loading">Loading</span>
-                                  </div>
-                              </form>
-                          </div>
+                <script>
+                    new AJS.RestfulTable({
+                        autoFocus: true,
+                        el: jQuery("#laboratory-records-table"),
+                        allowReorder: true,
+                        resources: {
+                            all: AJS.contextPath()+"rest/laboratory/1.0/records",
+                            self: AJS.contextPath()+"rest/laboratory/1.0/records"
+                        },
+                        columns: [
+                            {
+                                id: "text",
+                                header: "text"
+                            },
+                            {
+                                id: "date",
+                                header: "date"
+                            }
+                        ]
+                    });
+                </script>
+                <table id="laboratory-records-table"></table>
             </div>
             <div class="tabs-pane" id="tab-C">
                 <h2>3 tab</h2>

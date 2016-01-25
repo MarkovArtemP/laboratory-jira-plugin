@@ -13,8 +13,7 @@ public class XmlRecords {
 
     public XmlRecords(){};
 
-    public XmlRecords(long count, List<XmlRecord> records) {
-        this.count = count;
+    public XmlRecords(List<XmlRecord> records) {
         this.records = records;
     }
 

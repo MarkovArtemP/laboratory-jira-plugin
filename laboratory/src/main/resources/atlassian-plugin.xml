@@ -20,9 +20,7 @@
         <transformer key="jiraSoyTransformer"/>
       </transformation>
     <resource type="download" name="images/" location="/images"/>
-    <resource type="download" name="record-soy.js" location="/templates/laboratory/record.soy"/>
-    <resource type="download" name="RecordRow.js" location="/js/RecordRow.js"/>
-    <resource type="download" name="record-init.js" location="/js/record-init.js"/>
+    <resource type="download" name="record-init.js" location="/js/restful.js"/>
     <context>laboratory</context>
   </web-resource>
   <web-item name="Laboratory Web Item" i18n-name-key="laboratory-web-item.name" key="laboratory-web-item" section="system.top.navigation.bar" weight="1000">

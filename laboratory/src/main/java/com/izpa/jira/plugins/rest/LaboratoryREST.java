@@ -1,6 +1,7 @@
 package com.izpa.jira.plugins.rest;
 
 import com.atlassian.jira.rest.v1.util.CacheControl;
+import com.atlassian.jira.util.json.JSONException;
 import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
 import com.google.common.collect.Lists;
@@ -23,15 +24,15 @@ import java.util.Locale;
 /**
  * A resource of message.
  */
-@Path("/records")
+@Path("records")
 public class LaboratoryREST {
     private DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
 
     @GET
     @AnonymousAllowed
-    //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({"application/json"})
-    public Response getRecords(@QueryParam("id") String id) throws Exception {
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Produces({"application/json"})
+    public Response getRecords() throws Exception {
 
         List<XmlRecord> xmlRecords = Lists.newArrayList();
 
@@ -39,13 +40,25 @@ public class LaboratoryREST {
             xmlRecords.add(Mapper.toXmlRecord(record));
         }
 
-        return Response.ok(new XmlRecords(xmlRecords.size(), xmlRecords)).cacheControl(CacheControl.NO_CACHE).build();
+        return Response.ok(new XmlRecords(xmlRecords)).cacheControl(CacheControl.NO_CACHE).build();
+    }
+
+
+    @GET
+    @Path("{id}")
+    @AnonymousAllowed
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Produces({"application/json"})
+    public Response getRecord(@PathParam("id") String idStr) throws Exception {
+        long id = Long.parseLong(idStr);
+
+        return Response.ok(Mapper.toXmlRecord(DAOFactory.getInstance().getRecordDAO().getRecord(id))).cacheControl(CacheControl.NO_CACHE).build();
     }
 
     @POST
     @AnonymousAllowed
-    //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({"application/json"})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Produces({"application/json"})
     public Response addRecord(String request) throws Exception {
 
         JSONObject json = new JSONObject(request);
@@ -54,6 +67,49 @@ public class LaboratoryREST {
         Record record = new RecordImpl(text,format.parse(date));
 
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().addRecord(record);
+
+        return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Produces({"application/json"})
+    public Response deleteRule(@PathParam("id") String idStr) throws Exception {
+
+        long id = Long.parseLong(idStr);
+
+        RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().deleteRecord(id);
+
+        return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Produces({"application/json"})
+    public Response updateRule(@PathParam("id") String idStr, String request) throws Exception {
+
+        long id = Long.parseLong(idStr);
+
+        JSONObject json = new JSONObject(request);
+
+        String text;
+        try {
+            text = json.getString("text");
+        } catch (JSONException ex) {
+            text = null;
+        }
+
+        String date;
+        try {
+            date = json.getString("date");
+        } catch (JSONException ex) {
+            date = null;
+        }
+        Record record = new RecordImpl(text, format.parse(date));
+
+        RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().updateRecord(id, record);
 
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
     }
