@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+<atlassian-plugin key="laboratory" name="${project.name}" plugins-version="2">
   <plugin-info>
     <description>${project.description}</description>
     <version>${project.version}</version>
@@ -14,7 +14,7 @@
   <web-resource key="laboratory-resources" name="laboratory Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="images/" location="/images"/>
-    <!--<resource type="download" name="record-init.js" location="/js/rest.js"/>-->
+    <resource type="download" name="record-init.js" location="/js/rest.js"/>
     <context>laboratory</context>
   </web-resource>
   <web-item name="Laboratory Web Item" i18n-name-key="laboratory-web-item.name" key="laboratory-web-item" section="system.top.navigation.bar" weight="1000">
@@ -22,7 +22,7 @@
     <label>Laboratory</label>&gt;
     <link linkId="laboratory-web-item-link">/secure/LaboratoryAction.jspa</link>
   </web-item>
-  <webwork1 key="laboratory" name="Laboratory" i18n-name-key="laboratory.name">
+  <webwork1 key="laboratory-webwork" name="Laboratory-webwork" i18n-name-key="laboratory.name">
     <description key="laboratory.description">The Laboratory Plugin</description>
     <actions>
       <action name="com.izpa.jira.plugins.jira.webwork.LaboratoryAction" alias="LaboratoryAction">
