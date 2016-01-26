@@ -39,68 +39,58 @@
                       </form>
                 </div>
                 <script type="text/javascript">
-                document.write("window.location.href : ");
-                document.write(window.location.href+"<br>");
-                </script>
-                <script type="text/javascript">
-                document.write("document.URL: ");
-                document.write(document.URL+"<br>");
-                </script>
+                    function getRequestString (type, id, content){
+                        var url =   location.protocol+
+                                    "//"+location.hostname+
+                                    (location.port ? ":"+location.port: "")+
+                                    contextPath+
+                                    "/rest/laboratory/1.0/records/"
+                                    +id;
 
-                <script type="text/javascript">
-                    document.write("AJS.params.baseURL: ");
-                    document.write(AJS.params.baseURL+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("contextPath: ");
-                    document.write(contextPath+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("AJS.contextPath: ");
-                    document.write(AJS.contextPath+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("baseUrl: ");
-                    document.write(baseUrl+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("$baseUrl: ");
-                    document.write($baseUrl+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("$req.contextPath: ");
-                    document.write($req.contextPath+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("req.contextPath: ");
-                    document.write(req.contextPath+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("1<br>");
-                    document.write(contextPath+"/rest/laboratory/1.0/records"+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("2<br>");
-                    document.write(jQuery.getJSON(contextPath+"/rest/laboratory/1.0/records")+"<br>");
-                </script>
-                <script type="text/javascript">
-                    document.write("3<br>");
-                    var records1 = JSON.parse(jQuery.getJSON(contextPath+"/rest/laboratory/1.0/records"));
-                    document.write("4<br>");
-                    document.write(records1.count+"<br>");
-                    document.write("5<br>");
-                    document.write(records1.records["text"]+"<br>");
-                </script>
-                <script type="text/javascript">
-                    var url =  location.protocol+"//"+location.hostname+(location.port ? ":"+location.port: "")+contextPath+"/rest/laboratory/1.0/records";
-                    document.write(url);
-                    document.write("3<br>");
-                    var jrecords = $.getJSON(url);
-                    var records = JSON.parse(jrecords);
-                    document.write("4<br>");
-                    document.write(records.count+"<br>");
-                    document.write("5<br>");
-                    document.write(records.records[1].text+"<br>");
+                        var httpRequest;
+                        if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+                            httpRequest = new XMLHttpRequest();
+                            if (httpRequest.overrideMimeType) {
+                                httpRequest.overrideMimeType('text/xml');
+                                // See note below about this line
+                            }
+                        }
+                        else if (window.ActiveXObject) { // IE
+                            try {
+                                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+                            }
+                            catch (e) {
+                                try {
+                                    httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                                }
+                                catch (e) {}
+                            }
+                        }
+                        if (!httpRequest) {
+                            alert('Giving up :( Cannot create an XMLHTTP instance');
+                            return false;
+                        }
+                        httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
+                        httpRequest.open(type, url, true);
+                        httpRequest.send(content);
+                        function alertContents(httpRequest) {
+                        	try {
+                        		if (httpRequest.readyState == 4) {
+                        			if (httpRequest.status == 200) {
+                        				alert(httpRequest.responseText);
+                        			} else {
+                        				alert('There was a problem with the request.');
+                        			}
+                        		}
+                        	}
+                        	catch( e ) {
+                        		alert('Caught Exception: ' + e.description);
+                        	}
+                        }
+                        return httpRequest.responseText;
+                    }
+                    var strText = getRequestString("GET","","")
+                    document.write(strText);
                 </script>
             </div>
             <div class="tabs-pane" id="tab-C">
