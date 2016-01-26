@@ -1,6 +1,5 @@
 window.onload = function() {
     getRequestString ("GET", "", null);
-    alert ("Complete!");
 }
 function getRequestString (type, id, content){
     var url =   location.protocol+
@@ -56,12 +55,15 @@ function alertContents(httpRequest, type) {
 function tableDrow(records){
     var table = document.getElementById("records-table");
     for (i=0;i<records.length;i++){
-        var newRow=table.insertRow(i);
+        var newRow=table.insertRow(i+1);
 
         var newCell = newRow.insertCell(0);
         newCell.innerHTML=records[i].text;
 
         var newCell = newRow.insertCell(1);
         newCell.innerHTML=records[i].date;
+
+        var newCell = newRow.insertCell(2);
+        newCell.innerHTML='<input type="button" value="Change" id=change-"'+i+'"> <input type="button" value="Delete" id=delete-"'+i+'">';
     }
 }
