@@ -37,7 +37,7 @@
                     </thead>
                     <tbody id = "records-table">
                         <tr>
-                        <form action="/rest/laboratory/1.0/records">
+                        <form enctype="application/x-www-form-urlencoded" name="new-record-form" action="/rest/laboratory/1.0/records" method="post">
                             <td><input type="text" name="text" placeholder="Some text" required/></td>
                             <td><input type="date" name="date" placeholder="mm.DD.yyyy" required/></td>
                             <td><input type="submit" value="New record"/></td>

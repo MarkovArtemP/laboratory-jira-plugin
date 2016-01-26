@@ -24,6 +24,7 @@ import java.util.Locale;
 /**
  * A resource of message.
  */
+@AnonymousAllowed
 @Path("records")
 public class LaboratoryREST {
     private DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
@@ -43,24 +44,16 @@ public class LaboratoryREST {
     }
 
 
-    @GET
-    @Path("{id}")
-    @AnonymousAllowed
-    @Produces({"application/json"})
-    public Response getRecord(@PathParam("id") String idStr) throws Exception {
-        long id = Long.parseLong(idStr);
-
-        return Response.ok(Mapper.toXmlRecord(DAOFactory.getInstance().getRecordDAO().getRecord(id))).cacheControl(CacheControl.NO_CACHE).build();
-    }
-
     @POST
     @AnonymousAllowed
     @Produces({"application/json"})
-    public Response addRecord(String request) throws Exception {
-
-        JSONObject json = new JSONObject(request);
-        String text = json.getString("text");
-        String date = json.getString("date");
+    @Consumes("application/json")
+    public Response addRecord(@FormParam("text") String text,
+                              @FormParam("date") String date) throws Exception {
+        System.out.println("================================================================================");
+        System.out.println(text);
+        System.out.println(date);
+        System.out.println("================================================================================");
         Record record = new RecordImpl(text,format.parse(date));
 
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().addRecord(record);
@@ -69,10 +62,10 @@ public class LaboratoryREST {
     }
 
     @DELETE
+    @AnonymousAllowed
     @Path("{id}")
     @Produces({"application/json"})
     public Response deleteRule(@PathParam("id") String idStr) throws Exception {
-
         long id = Long.parseLong(idStr);
 
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().deleteRecord(id);
@@ -81,8 +74,10 @@ public class LaboratoryREST {
     }
 
     @PUT
+    @AnonymousAllowed
     @Path("{id}")
     @Produces({"application/json"})
+    @Consumes("application/json")
     public Response updateRule(@PathParam("id") String idStr, String request) throws Exception {
 
         long id = Long.parseLong(idStr);

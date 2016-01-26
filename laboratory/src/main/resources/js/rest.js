@@ -1,12 +1,13 @@
 window.onload = function() {
     getRequestString ("GET", "", null);
+    document.forms.namedItem('new-record-form').onsubmit = function() {getRequestString ("GET", "", null);};
 }
 function getRequestString (type, id, content){
     var url =   location.protocol+
-                "//"+location.hostname+
-                (location.port ? ":"+location.port: "")+
+                '//'+location.hostname+
+                (location.port ? ':'+location.port: '')+
                 contextPath+
-                "/rest/laboratory/1.0/records/"
+                '/rest/laboratory/1.0/records/'
                 +id;
 
     var httpRequest;
@@ -32,24 +33,30 @@ function getRequestString (type, id, content){
         alert('Cannot create an XMLHTTP instance');
         return false;
     }
-    httpRequest.onreadystatechange = function() { alertContents(httpRequest, type); };
+    httpRequest.onreadystatechange = function() { alertContents(httpRequest, type, url); };
     httpRequest.open(type, url, true);
     httpRequest.send(content);
 }
 
-function alertContents(httpRequest, type) {
+function alertContents(httpRequest, type, url) {
     try {
         if (httpRequest.readyState == 4) {
             if (httpRequest.status == 200) {
-                tableDrow(JSON.parse(httpRequest.responseText).records);
+                if (type==="GET"){
+                    tableDrow(JSON.parse(httpRequest.responseText).records);
+                }
+                else {
+                    getRequestString ("GET", "", null);
+                }
             } else {
                 alert('There was a problem with the request.');
+                alert(type);
+                alert(url);
+                alert(httpRequest.status);
             }
         }
     }
-    catch( e ) {
-        alert('Caught Exception: ' + e.description);
-    }
+    catch( e ) {}
 }
 
 function tableDrow(records){
@@ -64,6 +71,8 @@ function tableDrow(records){
         newCell.innerHTML=records[i].date;
 
         var newCell = newRow.insertCell(2);
-        newCell.innerHTML='<input type="button" value="Change" id=change-"'+i+'"> <input type="button" value="Delete" id=delete-"'+i+'">';
+        newCell.innerHTML='<input type="button" value="Change" id="change-'+i+'"> <input type="button" value="Delete" id="delete-'+i+'">';
+        document.getElementById('change-'+i).onclick=function(){alert('Changed!');};
+        document.getElementById('delete-'+i).onclick=function(){getRequestString ('DELETE', i, null);};
     }
 }
