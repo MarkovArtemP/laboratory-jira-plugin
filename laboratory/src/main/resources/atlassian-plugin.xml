@@ -14,6 +14,7 @@
   <web-resource key="laboratory-resources" name="laboratory Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="images/" location="/images"/>
+    <!--<resource type="download" name="record-init.js" location="/js/rest.js"/>-->
     <context>laboratory</context>
   </web-resource>
   <web-item name="Laboratory Web Item" i18n-name-key="laboratory-web-item.name" key="laboratory-web-item" section="system.top.navigation.bar" weight="1000">

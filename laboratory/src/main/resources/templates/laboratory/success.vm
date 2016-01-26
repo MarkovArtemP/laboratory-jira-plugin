@@ -3,6 +3,7 @@
  <head>
      <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.4.3/css/aui.css" media="all">
      <script src="//localhost:2990/jira/atlassian-connect/all.js" type="text/javascript"></script>
+     $webResourceManager.requireResourcesForContext("laboratory")
  </head>
  <body>
     <section id="content" class="ac-content">
@@ -19,25 +20,10 @@
                 </li>
             </ul>
             <div class="tabs-pane" id="tab-A">
-
+                <h2>1 tab</h2>
+                <p>Some text</p>
             </div>
             <div class="tabs-pane active-pane" id="tab-B">
-                <div id="laboratory-panel-records" class="laboratory-panel">
-                     <form id="laboratory-records" class="loading" action="#">
-                         <table class="aui" id="laboratory-records-table">
-                             <thead>
-                                 <tr>
-                                     <th>text</th>
-                                     <th>date</th>
-                                     <th><!--buttons--></th>
-                                     <th><!--throbber--></th>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                             </tbody>
-                         </table>
-                      </form>
-                </div>
                 <script type="text/javascript">
                     function getRequestString (type, id, content){
                         var url =   location.protocol+
@@ -73,24 +59,24 @@
                         httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
                         httpRequest.open(type, url, true);
                         httpRequest.send(content);
-                        function alertContents(httpRequest) {
-                        	try {
-                        		if (httpRequest.readyState == 4) {
-                        			if (httpRequest.status == 200) {
-                        				alert(httpRequest.responseText);
-                        			} else {
-                        				alert('There was a problem with the request.');
-                        			}
-                        		}
-                        	}
-                        	catch( e ) {
-                        		alert('Caught Exception: ' + e.description);
-                        	}
-                        }
-                        return httpRequest.responseText;
+                        document.write("lalalala");
+                        document.write(httpRequest.responseText);
                     }
-                    var strText = getRequestString("GET","","")
-                    document.write(strText);
+                    function alertContents(httpRequest) {
+                        try {
+                            if (httpRequest.readyState == 4) {
+                                if (httpRequest.status == 200) {
+                                    }
+                                } else {
+                                    alert('There was a problem with the request.');
+                                }
+                            }
+                        }
+                        catch( e ) {
+                            alert('Caught Exception: ' + e.description);
+                        }
+                    }
+                    getRequestString ("GET", "", null);
                 </script>
             </div>
             <div class="tabs-pane" id="tab-C">

@@ -7,14 +7,11 @@ import java.util.List;
 @XmlRootElement
 public class XmlRecords {
     @XmlElement
-    public long count;
-    @XmlElement
     public List<XmlRecord> records;
 
     public XmlRecords(){};
 
-    public XmlRecords(long count, List<XmlRecord> records) {
-        this.count = count;
+    public XmlRecords(List<XmlRecord> records) {
         this.records = records;
     }
 

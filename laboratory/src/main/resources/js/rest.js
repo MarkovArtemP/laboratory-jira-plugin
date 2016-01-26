@@ -32,21 +32,22 @@ function getRequestString (type, id, content){
     httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
     httpRequest.open(type, url, true);
     httpRequest.send(content);
-    function alertContents(httpRequest) {
-    	try {
-    		if (httpRequest.readyState == 4) {
-    			if (httpRequest.status == 200) {
-    				alert(httpRequest.responseText);
-    			} else {
-    				alert('There was a problem with the request.');
-    			}
-    		}
-    	}
-    	catch( e ) {
-    		alert('Caught Exception: ' + e.description);
-    	}
+    document.write("lalalala");
+    document.write(httpRequest.responseText);
     }
-    return httpRequest.responseText;
+    function alertContents(httpRequest) {
+    try {
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status == 200) {
+                }
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+        else return;
+    }
+    catch( e ) {
+        alert('Caught Exception: ' + e.description);
+    }
 }
-var strText = getRequestString("GET","","")
-document.write(strText);
+    getRequestString ("GET", "", null);

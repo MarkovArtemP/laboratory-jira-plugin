@@ -35,4 +35,7 @@ public class LaboratoryAction extends JiraWebActionSupport {
         return NONE;
     }
 
+    public RecordEntity[] getStudents() {
+        return records;
+    }
 }
