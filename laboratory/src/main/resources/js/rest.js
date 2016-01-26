@@ -1,12 +1,6 @@
 window.onload = function() {
-    var jsonString = getRequestString ("GET", "", null);
-    alert (jsonString);
-    var tab = document.getElementById("records-table");
-    var text = document.createElement("h1");
-    text.innerHTML="It's work too!";
-    tab.appendChild(text);
+    getRequestString ("GET", "", null);
     alert ("Complete!");
-
 }
 function getRequestString (type, id, content){
     var url =   location.protocol+
@@ -36,20 +30,19 @@ function getRequestString (type, id, content){
         }
     }
     if (!httpRequest) {
-        alert('Giving up :( Cannot create an XMLHTTP instance');
-        return null;
+        alert('Cannot create an XMLHTTP instance');
+        return false;
     }
-    httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
+    httpRequest.onreadystatechange = function() { alertContents(httpRequest, type); };
     httpRequest.open(type, url, true);
     httpRequest.send(content);
-    return httpRequest.responseText;
 }
-function alertContents(httpRequest) {
+
+function alertContents(httpRequest, type) {
     try {
         if (httpRequest.readyState == 4) {
             if (httpRequest.status == 200) {
-
-
+                tableDrow(JSON.parse(httpRequest.responseText).records);
             } else {
                 alert('There was a problem with the request.');
             }
@@ -57,5 +50,18 @@ function alertContents(httpRequest) {
     }
     catch( e ) {
         alert('Caught Exception: ' + e.description);
+    }
+}
+
+function tableDrow(records){
+    var table = document.getElementById("records-table");
+    for (i=0;i<records.length;i++){
+        var newRow=table.insertRow(i);
+
+        var newCell = newRow.insertCell(0);
+        newCell.innerHTML=records[i].text;
+
+        var newCell = newRow.insertCell(1);
+        newCell.innerHTML=records[i].date;
     }
 }

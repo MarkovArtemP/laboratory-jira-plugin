@@ -26,7 +26,17 @@
                 <p>Some text</p>
             </div>
             <div class="tabs-pane active-pane" id="tab-B">
-                <div id = "records-table"/>
+                <table class="aui">
+                    <thead>
+                        <tr>
+                            <th>text</th>
+                            <th>date</th>
+                            <th><!--buttons--></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "records-table">
+                    </tbody>
+                </table>
             </div>
             <div class="tabs-pane" id="tab-C">
                 <h2>3 tab</h2>
