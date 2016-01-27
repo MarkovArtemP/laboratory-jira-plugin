@@ -51,9 +51,8 @@ public class LaboratoryREST {
     @POST
     @AnonymousAllowed
     public Response addRecord(final XmlRecord xmlRecord) throws Exception {
-        String text = xmlRecord.text;
-        String date = xmlRecord.date;
-        Record record = new RecordImpl(text,format.parse(date));
+        Date date = xmlRecord.date==null?null:format.parse(xmlRecord.date);
+        Record record = new RecordImpl(xmlRecord.text,date);
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().addRecord(record);
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
     }

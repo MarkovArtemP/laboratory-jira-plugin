@@ -14,7 +14,7 @@ public class Mapper {
 
         record.id = entity.getID();
         record.text = entity.getText();
-        record.date = format.format(entity.getDate());
+        record.date = entity.getDate()==null?null:format.format(entity.getDate());
 
         return record;
     }
