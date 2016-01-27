@@ -30,7 +30,6 @@ public class LaboratoryREST {
     @GET
     @AnonymousAllowed
     public Response getRecords() throws Exception {
-        System.out.println("In getRecords!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         RecordEntity[] records = DAOFactory.getInstance().getRecordDAO().getRecords();
         List<XmlRecord> result = new ArrayList<XmlRecord>();
         for (RecordEntity i : records){
@@ -44,7 +43,6 @@ public class LaboratoryREST {
     @Path("{id}")
     @AnonymousAllowed
     public Response getRecord(@PathParam("id") final String idStr) throws Exception {
-        System.out.println("In getRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         long id = Long.parseLong(idStr);
         return Response.ok(Mapper.toXmlRecord(DAOFactory.getInstance().getRecordDAO().getRecord(id))).cacheControl(CacheControl.NO_CACHE).build();
     }
@@ -52,7 +50,6 @@ public class LaboratoryREST {
     @POST
     @AnonymousAllowed
     public Response addRecord(final XmlRecord xmlRecord) throws Exception {
-        System.out.println("In addRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         String text = xmlRecord.text;
         String date = xmlRecord.date;
         Record record = new RecordImpl(text,format.parse(date));
@@ -64,7 +61,6 @@ public class LaboratoryREST {
     @Path("{id}")
     @AnonymousAllowed
     public Response deleteRecord(@PathParam("id") final String idStr) throws Exception {
-        System.out.println("In deleteRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         long id = Long.parseLong(idStr);
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().deleteRecord(id);
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
@@ -74,7 +70,6 @@ public class LaboratoryREST {
     @Path("{id}")
     @AnonymousAllowed
     public Response updateRecord(@PathParam("id") final String idStr, final XmlRecord xmlRecord) throws Exception {
-        System.out.println("In updateRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         long id = Long.parseLong(idStr);
         Record record = new RecordImpl(xmlRecord.text, format.parse(xmlRecord.date));
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().updateRecord(id, record);
