@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,7 +72,8 @@ public class LaboratoryREST {
     @AnonymousAllowed
     public Response updateRecord(@PathParam("id") final String idStr, final XmlRecord xmlRecord) throws Exception {
         long id = Long.parseLong(idStr);
-        Record record = new RecordImpl(xmlRecord.text, format.parse(xmlRecord.date));
+        Date date = xmlRecord.date==null?null:format.parse(xmlRecord.date);
+        Record record = new RecordImpl(xmlRecord.text, date);
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().updateRecord(id, record);
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
     }

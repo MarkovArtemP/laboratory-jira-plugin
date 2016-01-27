@@ -5,9 +5,6 @@
      <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.4.3/css/aui.css" media="all">
      <script src="//localhost:2990/jira/atlassian-connect/all.js" type="text/javascript"></script>
      $webResourceManager.requireResourcesForContext("laboratory")
-     $webResourceManager.requireResource("laboratory:laboratory-resources")
-     $webResourceManager.requireResource("com.atlassian.auiplugin:ajs")
-     $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-restfultable")
  </head>
  <body>
     <section id="content" class="ac-content">

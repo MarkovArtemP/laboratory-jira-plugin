@@ -13,15 +13,7 @@
   <!-- add our web resources -->
   <web-resource key="laboratory-resources" name="laboratory Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <dependency>
-      com.atlassian.auiplugin:aui-experimental-restfultable
-    </dependency>
-      <transformation extension="js">
-        <transformer key="jsI18n"/>
-      </transformation>
-      <transformation extension="soy">
-        <transformer key="jiraSoyTransformer"/>
-      </transformation>
+    <dependency>com.atlassian.auiplugin:aui-experimental-restfultable</dependency>
     <resource type="download" name="images/" location="/images"/>
     <resource type="download" name="record-init.js" location="/js/restful.js"/>
     <context>laboratory</context>
