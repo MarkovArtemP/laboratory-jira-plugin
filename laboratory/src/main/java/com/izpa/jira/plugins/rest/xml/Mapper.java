@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class Mapper {
-    private static DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+    private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     public static XmlRecord toXmlRecord(RecordEntity entity) {
 
         XmlRecord record = new XmlRecord();

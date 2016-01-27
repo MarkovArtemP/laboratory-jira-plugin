@@ -26,7 +26,7 @@ import java.util.Locale;
 @Consumes ({ MediaType.APPLICATION_JSON })
 @Produces ({ MediaType.APPLICATION_JSON })
 public class LaboratoryREST {
-    private DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+    private DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     @GET
     @AnonymousAllowed
