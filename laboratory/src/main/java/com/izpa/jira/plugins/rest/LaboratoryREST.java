@@ -1,23 +1,20 @@
 package com.izpa.jira.plugins.rest;
 
 import com.atlassian.jira.rest.v1.util.CacheControl;
-import com.atlassian.jira.util.json.JSONException;
-import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
-import com.google.common.collect.Lists;
 import com.izpa.jira.plugins.dao.DAOFactory;
 import com.izpa.jira.plugins.entity.RecordEntity;
 import com.izpa.jira.plugins.logic.Record;
 import com.izpa.jira.plugins.logic.impl.RecordImpl;
 import com.izpa.jira.plugins.rest.xml.Mapper;
 import com.izpa.jira.plugins.rest.xml.XmlRecord;
-import com.izpa.jira.plugins.rest.xml.XmlRecords;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,92 +22,62 @@ import java.util.Locale;
  * A resource of message.
  */
 @Path("records")
+@Consumes ({ MediaType.APPLICATION_JSON })
+@Produces ({ MediaType.APPLICATION_JSON })
 public class LaboratoryREST {
     private DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
 
     @GET
     @AnonymousAllowed
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({"application/json"})
     public Response getRecords() throws Exception {
-
-        List<XmlRecord> xmlRecords = Lists.newArrayList();
-
-        for (RecordEntity record : DAOFactory.getInstance().getRecordDAO().getRecords()) {
-            xmlRecords.add(Mapper.toXmlRecord(record));
+        System.out.println("In getRecords!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        RecordEntity[] records = DAOFactory.getInstance().getRecordDAO().getRecords();
+        List<XmlRecord> result = new ArrayList<XmlRecord>();
+        for (RecordEntity i : records){
+            result.add(Mapper.toXmlRecord(i));
         }
-
-        return Response.ok(new XmlRecords(xmlRecords)).cacheControl(CacheControl.NO_CACHE).build();
+        return Response.ok(result).cacheControl(CacheControl.NO_CACHE).build();
     }
 
 
     @GET
     @Path("{id}")
     @AnonymousAllowed
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({"application/json"})
-    public Response getRecord(@PathParam("id") String idStr) throws Exception {
+    public Response getRecord(@PathParam("id") final String idStr) throws Exception {
+        System.out.println("In getRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         long id = Long.parseLong(idStr);
-
         return Response.ok(Mapper.toXmlRecord(DAOFactory.getInstance().getRecordDAO().getRecord(id))).cacheControl(CacheControl.NO_CACHE).build();
     }
 
     @POST
     @AnonymousAllowed
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({"application/json"})
-    public Response addRecord(String request) throws Exception {
-
-        JSONObject json = new JSONObject(request);
-        String text = json.getString("text");
-        String date = json.getString("date");
+    public Response addRecord(final XmlRecord xmlRecord) throws Exception {
+        System.out.println("In addRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        String text = xmlRecord.text;
+        String date = xmlRecord.date;
         Record record = new RecordImpl(text,format.parse(date));
-
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().addRecord(record);
-
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
     }
 
     @DELETE
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({"application/json"})
-    public Response deleteRule(@PathParam("id") String idStr) throws Exception {
-
+    @AnonymousAllowed
+    public Response deleteRecord(@PathParam("id") final String idStr) throws Exception {
+        System.out.println("In deleteRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         long id = Long.parseLong(idStr);
-
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().deleteRecord(id);
-
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
     }
 
     @PUT
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({"application/json"})
-    public Response updateRule(@PathParam("id") String idStr, String request) throws Exception {
-
+    @AnonymousAllowed
+    public Response updateRecord(@PathParam("id") final String idStr, final XmlRecord xmlRecord) throws Exception {
+        System.out.println("In updateRecord!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         long id = Long.parseLong(idStr);
-
-        JSONObject json = new JSONObject(request);
-
-        String text;
-        try {
-            text = json.getString("text");
-        } catch (JSONException ex) {
-            text = null;
-        }
-
-        String date;
-        try {
-            date = json.getString("date");
-        } catch (JSONException ex) {
-            date = null;
-        }
-        Record record = new RecordImpl(text, format.parse(date));
-
+        Record record = new RecordImpl(xmlRecord.text, format.parse(xmlRecord.date));
         RecordEntity recordEntity = DAOFactory.getInstance().getRecordDAO().updateRecord(id, record);
-
         return Response.ok(Mapper.toXmlRecord(recordEntity)).cacheControl(CacheControl.NO_CACHE).build();
     }
 }

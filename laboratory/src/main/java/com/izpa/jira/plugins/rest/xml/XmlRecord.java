@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class XmlRecord {
-    public XmlRecord(){};
+    public XmlRecord(){}
     @XmlElement
     public long id;
     @XmlElement
