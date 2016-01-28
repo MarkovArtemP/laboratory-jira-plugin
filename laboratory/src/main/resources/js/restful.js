@@ -6,6 +6,7 @@ window.onload = function() {
                 return $select;
             }
         });
+
     var DateInputCreateView = AJS.RestfulTable.CustomCreateView.extend({
                 render: function (self) {
                     console.log(self);
@@ -13,6 +14,7 @@ window.onload = function() {
                     return $select;
                 }
             });
+
     new AJS.RestfulTable({
         autoFocus: true,
         el: jQuery("#laboratory-records-table"),

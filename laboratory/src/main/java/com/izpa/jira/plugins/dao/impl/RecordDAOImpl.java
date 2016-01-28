@@ -34,35 +34,26 @@ public class RecordDAOImpl implements RecordDAO {
     }
 
     public RecordEntity deleteRecord(final long id) throws Exception {
-
         return ao.executeInTransaction(new TransactionCallback<RecordEntity>() {
             public RecordEntity doInTransaction() {
-
                 RecordEntity entity = ao.find(RecordEntity.class, Query.select().where("ID=?", id))[0];
-
                 ao.delete(entity);
-
                 return entity;
             }
         });
     }
 
     public RecordEntity updateRecord(final long id, final Record record) throws Exception {
-
         return ao.executeInTransaction(new TransactionCallback<RecordEntity>() {
             public RecordEntity doInTransaction() {
-
                 RecordEntity entity = ao.find(RecordEntity.class, Query.select().where("ID=?", id))[0];
-
                 if (record.getText() != null) {
                     entity.setText(record.getText());
                 }
                 if (record.getDate() != null) {
                     entity.setDate(record.getDate());
                 }
-
                 entity.save();
-
                 return entity;
             }
         });

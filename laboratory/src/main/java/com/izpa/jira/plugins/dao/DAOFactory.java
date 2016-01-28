@@ -9,15 +9,18 @@ public class DAOFactory {
     private static RecordDAO recordDAO = null;
     private static DAOFactory instance = null;
     private static ActiveObjects ao;
+
     private DAOFactory(ActiveObjects ao) {
         DAOFactory.ao=checkNotNull(ao);
     }
+
     public static synchronized DAOFactory getInstance() throws Exception {
         if (instance == null) {
             instance = new DAOFactory(checkNotNull(ao));
         }
         return instance;
     }
+
     public RecordDAO getRecordDAO() {
         if (recordDAO == null) {
             recordDAO = new RecordDAOImpl(ao);
