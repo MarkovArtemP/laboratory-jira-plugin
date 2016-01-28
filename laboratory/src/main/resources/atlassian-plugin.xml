@@ -13,12 +13,14 @@
   <!-- add our web resources -->
   <web-resource key="laboratory-resources" name="laboratory Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-experimental-restfultable</dependency>
     <resource type="download" name="images/" location="/images"/>
+    <resource type="download" name="record-init.js" location="/js/restful.js"/>
     <context>laboratory</context>
   </web-resource>
   <web-item name="Laboratory Web Item" i18n-name-key="laboratory-web-item.name" key="laboratory-web-item" section="system.top.navigation.bar" weight="1000">
     <description key="laboratory-web-item.description">The Laboratory Web Item Plugin</description>
-    <label>Laboratory</label>>
+    <label>Laboratory</label>&gt;
     <link linkId="laboratory-web-item-link">/secure/LaboratoryAction.jspa</link>
   </web-item>
   <webwork1 key="laboratory" name="Laboratory" i18n-name-key="laboratory.name">
@@ -32,11 +34,11 @@
   <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
     <description>Component to access Active Objects functionality from the plugin</description>
   </component-import>
-
   <ao key="ao-module">
     <entity>com.izpa.jira.plugins.entity.RecordEntity</entity>
   </ao>
-
-  <component key="dao-factory" class="com.izpa.jira.plugins.dao.DAOFactory">
-  </component>
+  <component key="dao-factory" class="com.izpa.jira.plugins.dao.DAOFactory"></component>
+  <rest name="Laboratory REST" i18n-name-key="laboratory-rest.name" key="laboratory-rest" path="/laboratory" version="1.0">
+    <description key="laboratory-rest.description">The Laboratory REST Plugin</description>
+  </rest>
 </atlassian-plugin>
